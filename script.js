@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!typingElement) return;
 
   const text =
-    "Happy Birthday ❤️\nThis little website is made only for you.\nMay your smile always stay the same ✨";
+    "Happy Birthday Anuuuu 😘\nYe raha meri anu ka giftt\nHope so pasand aae meri ladduu ko ✨";
 
   let index = 0;
   typingElement.innerHTML = "";
