@@ -6,17 +6,17 @@ function unlock() {
   const passwordInput = document.getElementById("passwordInput");
   const errorMsg = document.getElementById("errorMsg");
 
-  // Safety check (agar element hi na ho)
-  if (!passwordInput) return;
+  if (!passwordInput || !errorMsg) return;
 
-  const password = passwordInput.value;
+  const password = passwordInput.value.trim();
 
   if (!password) {
     errorMsg.textContent = "Please enter the magic word ✨";
     return;
   }
 
-  fetch("http://localhost:5000/api/auth", {
+  // 🔥 IMPORTANT FIX: use relative API path
+  fetch("/api/auth", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -26,7 +26,6 @@ function unlock() {
     .then(res => res.json())
     .then(data => {
       if (data.success) {
-        // Success → next page
         window.location.href = "wish.html";
       } else {
         errorMsg.textContent = "That magic word is not correct ❌";
@@ -44,17 +43,18 @@ function unlock() {
 document.addEventListener("DOMContentLoaded", () => {
   const typingElement = document.getElementById("typingText");
 
-  if (!typingElement) return; // sirf wish page pe chale
+  if (!typingElement) return;
 
   const text =
     "Happy Birthday ❤️\nThis little website is made only for you.\nMay your smile always stay the same ✨";
 
   let index = 0;
+  typingElement.innerHTML = "";
 
   function typeEffect() {
     if (index < text.length) {
       typingElement.innerHTML +=
-        text.charAt(index) === "\n" ? "<br>" : text.charAt(index);
+        text[index] === "\n" ? "<br>" : text[index];
       index++;
       setTimeout(typeEffect, 90);
     }
@@ -67,18 +67,15 @@ document.addEventListener("DOMContentLoaded", () => {
    MEMORY SCROLL ANIMATION
 ========================= */
 
-const memoryCards = document.querySelectorAll(".memory-card");
-
-function revealMemories() {
-  memoryCards.forEach(card => {
+document.addEventListener("scroll", () => {
+  document.querySelectorAll(".memory-card").forEach(card => {
     const rect = card.getBoundingClientRect();
     if (rect.top < window.innerHeight - 100) {
       card.classList.add("show");
     }
   });
-}
+});
 
-window.addEventListener("scroll", revealMemories);
 /* =========================
    SPARK / PARTICLE EFFECT
 ========================= */
@@ -87,16 +84,15 @@ const canvas = document.getElementById("sparkCanvas");
 
 if (canvas) {
   const ctx = canvas.getContext("2d");
-  resizeCanvas();
-
-  window.addEventListener("resize", resizeCanvas);
-
   const particles = [];
 
   function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
   }
+
+  resizeCanvas();
+  window.addEventListener("resize", resizeCanvas);
 
   function createParticle(x, y) {
     particles.push({
@@ -105,7 +101,7 @@ if (canvas) {
       size: Math.random() * 3 + 1,
       speedX: (Math.random() - 0.5) * 2,
       speedY: Math.random() * -2 - 1,
-      life: 100,
+      life: 80,
       color: `hsl(${Math.random() * 60 + 300}, 100%, 70%)`
     });
   }
@@ -131,17 +127,13 @@ if (canvas) {
 
   animateParticles();
 
-  // Emit sparks from cards
   document.querySelectorAll(".thanks-card").forEach(card => {
     card.addEventListener("mousemove", e => {
-      const rect = card.getBoundingClientRect();
-      createParticle(
-        e.clientX - rect.left + rect.left,
-        e.clientY - rect.top + rect.top
-      );
+      createParticle(e.clientX, e.clientY);
     });
   });
 }
+
 /* =========================
    MEMORY IMAGE LIGHTBOX
 ========================= */
@@ -149,21 +141,18 @@ if (canvas) {
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightboxImg");
 
-document.querySelectorAll(".memory-card img").forEach(img => {
-  img.addEventListener("click", () => {
-    lightbox.style.display = "flex";
-    lightboxImg.src = img.src;
+if (lightbox && lightboxImg) {
+  document.querySelectorAll(".memory-card img").forEach(img => {
+    img.addEventListener("click", () => {
+      lightbox.style.display = "flex";
+      lightboxImg.src = img.src;
+    });
   });
-});
 
-function closeLightbox() {
-  lightbox.style.display = "none";
-  lightboxImg.src = "";
-}
-
-// Close on background click
-if (lightbox) {
   lightbox.addEventListener("click", e => {
-    if (e.target === lightbox) closeLightbox();
+    if (e.target === lightbox) {
+      lightbox.style.display = "none";
+      lightboxImg.src = "";
+    }
   });
 }
