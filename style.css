@@ -490,3 +490,7 @@ body {
     opacity: 0;
   }
 }
+.book-wrapper {
+  position: relative;
+  z-index: 5;
+}
