@@ -381,15 +381,22 @@ body {
   from { transform: scale(0.7); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
-/* =========================
-   FINAL BOOK SURPRISE (FIXED)
-========================= */
+body {
+  margin: 0;
+  background: radial-gradient(circle, #2a003f, #000);
+  font-family: cursive;
+  color: white;
+  text-align: center;
+}
+
+.final-container {
+  margin-top: 40px;
+}
 
 .book-wrapper {
   display: flex;
   justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+  margin-top: 40px;
 }
 
 .book {
@@ -410,11 +417,8 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: white;
-  font-family: cursive;
-  box-shadow: 0 0 40px rgba(255, 120, 200, 0.6);
   backface-visibility: hidden;
-  transition: transform 1.2s ease;
+  transition: transform 1s;
   z-index: 2;
 }
 
@@ -423,17 +427,15 @@ body {
   position: absolute;
   inset: 0;
   background: #fff8f1;
+  color: #4a0033;
   border-radius: 15px;
-  padding: 25px;
+  padding: 20px;
   transform: rotateY(-180deg);
   backface-visibility: hidden;
-  transition: transform 1.2s ease;
-  font-family: cursive;
-  color: #4a0033;
+  transition: transform 1s;
   z-index: 1;
 }
 
-/* OPEN STATE */
 .book.open .book-cover {
   transform: rotateY(180deg);
 }
@@ -442,20 +444,9 @@ body {
   transform: rotateY(0deg);
 }
 
-/* ⚠️ IMPORTANT FIX */
-.hidden {
-  visibility: hidden;
-}
-
-/* CONTENT */
-.page-content {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  margin-bottom: 20px;
-}
-
-.next-page-btn {
-  padding: 8px 18px;
+#nextPageBtn {
+  margin-top: 20px;
+  padding: 8px 16px;
   border-radius: 20px;
   border: none;
   background: #ff6fa5;
@@ -463,34 +454,26 @@ body {
   cursor: pointer;
 }
 
-/* =========================
-   FLOWERS
-========================= */
-
+/* FLOWERS */
 #flower-container {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 9999;
 }
 
 .flower {
   position: absolute;
   font-size: 24px;
-  animation: floatFlower 3.5s linear forwards;
+  animation: flowerFly 3s linear forwards;
 }
 
-@keyframes floatFlower {
+@keyframes flowerFly {
   from {
-    transform: translateY(0) rotate(0deg);
+    transform: translateY(0);
     opacity: 1;
   }
   to {
-    transform: translateY(-300px) rotate(360deg);
+    transform: translateY(-300px);
     opacity: 0;
   }
-}
-.book-wrapper {
-  position: relative;
-  z-index: 5;
 }
