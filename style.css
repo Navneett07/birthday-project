@@ -381,3 +381,117 @@ body {
   from { transform: scale(0.7); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
+/* =========================
+   FINAL BOOK SURPRISE
+========================= */
+
+.book-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.book {
+  width: 260px;
+  height: 360px;
+  position: relative;
+  perspective: 1200px;
+  cursor: pointer;
+}
+
+/* COVER */
+.book-cover {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #ff6fa5, #a855f7);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-family: 'cursive';
+  box-shadow: 0 0 40px rgba(255, 120, 200, 0.6);
+  backface-visibility: hidden;
+  transition: transform 1.2s ease;
+}
+
+.book-cover h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.book-cover p {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+/* PAGE */
+.book-page {
+  position: absolute;
+  inset: 0;
+  background: #fff8f1;
+  border-radius: 15px;
+  padding: 25px;
+  transform: rotateY(-180deg);
+  backface-visibility: hidden;
+  transition: transform 1.2s ease;
+  font-family: 'cursive';
+  color: #4a0033;
+}
+
+.book.open .book-cover {
+  transform: rotateY(180deg);
+}
+
+.book.open .book-page {
+  transform: rotateY(0deg);
+}
+
+.hidden {
+  display: none;
+}
+
+.page-content {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.next-page-btn {
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: none;
+  background: #ff6fa5;
+  color: white;
+  cursor: pointer;
+}
+
+/* =========================
+   FLOWERS
+========================= */
+
+#flower-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.flower {
+  position: absolute;
+  font-size: 24px;
+  animation: floatFlower 3.5s linear forwards;
+}
+
+@keyframes floatFlower {
+  from {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-300px) rotate(360deg);
+    opacity: 0;
+  }
+}
