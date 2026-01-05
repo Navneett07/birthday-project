@@ -382,7 +382,7 @@ body {
   to { transform: scale(1); opacity: 1; }
 }
 /* =========================
-   FINAL BOOK SURPRISE
+   FINAL BOOK SURPRISE (FIXED)
 ========================= */
 
 .book-wrapper {
@@ -411,20 +411,11 @@ body {
   justify-content: center;
   align-items: center;
   color: white;
-  font-family: 'cursive';
+  font-family: cursive;
   box-shadow: 0 0 40px rgba(255, 120, 200, 0.6);
   backface-visibility: hidden;
   transition: transform 1.2s ease;
-}
-
-.book-cover h2 {
-  font-size: 2rem;
-  margin-bottom: 10px;
-}
-
-.book-cover p {
-  font-size: 0.9rem;
-  opacity: 0.9;
+  z-index: 2;
 }
 
 /* PAGE */
@@ -437,10 +428,12 @@ body {
   transform: rotateY(-180deg);
   backface-visibility: hidden;
   transition: transform 1.2s ease;
-  font-family: 'cursive';
+  font-family: cursive;
   color: #4a0033;
+  z-index: 1;
 }
 
+/* OPEN STATE */
 .book.open .book-cover {
   transform: rotateY(180deg);
 }
@@ -449,10 +442,12 @@ body {
   transform: rotateY(0deg);
 }
 
+/* ⚠️ IMPORTANT FIX */
 .hidden {
-  display: none;
+  visibility: hidden;
 }
 
+/* CONTENT */
 .page-content {
   font-size: 1.1rem;
   line-height: 1.8;
